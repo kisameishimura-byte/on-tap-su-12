@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ôn Tập Lịch Sử 12 - Giữa Kì I</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --success: #10b981;
+      --success-bg: #ecfdf5;
+      --danger: #ef4444;
+      --danger-bg: #fef2f2;
+      --radius: 12px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      padding-bottom: 80px;
+    }
+
+    /* Header & Navigation */
+    header {
+      background: white;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    }
+    .header-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 12px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .brand h1 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+    .brand p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+    .nav-tabs {
+      display: flex;
+      gap: 8px;
+      background: #f1f5f9;
+      padding: 4px;
+      border-radius: 10px;
+    }
+    .tab-btn {
+      padding: 8px 18px;
+      border: none;
+      background: transparent;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+    .tab-btn.active {
+      background: white;
+      color: var(--primary);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1000px;
+      margin: 24px auto;
+      padding: 0 16px;
+    }
+
+    /* Section Styling */
+    .section-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin: 24px 0 16px;
+      padding-left: 10px;
+      border-left: 4px solid var(--primary);
+      color: #1e293b;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+      transition: border-color 0.2s;
+    }
+
+    /* Quiz Item Styles */
+    .q-title {
+      font-weight: 600;
+      margin-bottom: 12px;
+      font-size: 0.98rem;
+    }
+    .quote-box {
+      background: #f8fafc;
+      border-left: 3px solid #cbd5e1;
+      padding: 10px 14px;
+      margin-bottom: 14px;
+      font-style: italic;
+      color: #334155;
+      font-size: 0.9rem;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 10px;
+    }
+    .opt-label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+    .opt-label:hover {
+      background: #eff6ff;
+      border-color: #bfdbfe;
+    }
+    .opt-label input[type="radio"] {
+      accent-color: var(--primary);
+    }
+
+    /* True/False Sub-items */
+    .tf-sub {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px dashed var(--border);
+      gap: 8px;
+    }
+    .tf-sub:last-child { border-bottom: none; }
+    .tf-text { flex: 1 1 500px; font-size: 0.92rem; }
+    .tf-btns { display: flex; gap: 8px; }
+    .tf-label {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 12px;
+      background: #f1f5f9;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    /* Validation Highlighting */
+    .card.correct-card { border-color: var(--success); background-color: var(--success-bg); }
+    .card.wrong-card { border-color: var(--danger); background-color: var(--danger-bg); }
+    .feedback-badge {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+    .badge-correct { background: #d1fae5; color: #065f46; }
+    .badge-wrong { background: #fee2e2; color: #991b1b; }
+
+    /* Sticky Bottom Action Bar */
+    .action-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: white;
+      border-top: 1px solid var(--border);
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 -4px 12px rgba(0,0,0,0.05);
+      z-index: 40;
+    }
+    .score-summary {
+      font-weight: 700;
+      font-size: 1rem;
+      color: #1e293b;
+    }
+    .btn-group { display: flex; gap: 10px; }
+    .btn {
+      padding: 10px 20px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { background: var(--primary-hover); }
+    .btn-secondary { background: #e2e8f0; color: #334155; }
+    .btn-secondary:hover { background: #cbd5e1; }
+
+    /* Answers Tab Search */
+    .search-box {
+      margin-bottom: 20px;
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      font-size: 0.95rem;
+      outline: none;
+    }
+    .search-box:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(37,99,235,0.1); }
+
+    .key-badge {
+      display: inline-block;
+      font-weight: 800;
+      color: var(--primary);
+      margin-right: 6px;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .header-container { flex-direction: column; align-items: flex-start; }
+      .nav-tabs { width: 100%; justify-content: center; }
+      .action-bar { flex-direction: column; gap: 8px; }
+      .btn-group { width: 100%; }
+      .btn { flex: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <div class="brand">
+        <h1>LỊCH SỬ 12 - ÔN THI GIỮA KÌ I</h1>
+        <p>Hệ thống tự học, làm bài test trắc nghiệm và tra cứu đáp án đề cương chuẩn</p>
+      </div>
+      <div class="nav-tabs">
+        <button class="tab-btn active" onclick="switchTab('test')">📝 Làm Bài Test</button>
+        <button class="tab-btn" onclick="switchTab('answers')">📖 Đáp Án Đề Cương</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- TAB 1: LÀM BÀI TEST -->
+    <div id="tab-test">
+      <div class="section-title">PHẦN 1. TRẮC NGHIỆM NHIỀU PHƯƠNG ÁN (50 CÂU)</div>
+      <div id="mcq-container"></div>
+
+      <div class="section-title">PHẦN 2. TRẮC NGHIỆM ĐÚNG - SAI (6 CÂU TƯ LIỆU)</div>
+      <div id="tf-container"></div>
+    </div>
+
+    <!-- TAB 2: ĐÁP ÁN ĐỀ CƯƠNG -->
+    <div id="tab-answers" style="display: none;">
+      <input type="text" id="search-input" class="search-box" placeholder="🔍 Nhập từ khóa để tra nhanh câu hỏi hoặc nội dung..." onkeyup="filterAnswers()">
+      
+      <div class="section-title">I. ĐÁP ÁN 50 CÂU TRẮC NGHIỆM KHÁCH QUAN</div>
+      <div id="ans-mcq-list"></div>
+
+      <div class="section-title">II. ĐÁP ÁN 6 CÂU ĐÚNG - SAI</div>
+      <div id="ans-tf-list"></div>
+
+      <div class="section-title">III. HƯỚNG DẪN TỰ LUẬN TRỌNG TÂM (CỰC DỄ NHỚ)</div>
+      <div id="ans-essay-list"></div>
+    </div>
+  </main>
+
+  <!-- Sticky Footer for Quiz Mode -->
+  <div class="action-bar" id="action-bar">
+    <div class="score-summary" id="score-display">Chưa nộp bài</div>
+    <div class="btn-group">
+      <button class="btn btn-secondary" onclick="resetQuiz()">Làm lại</button>
+      <button class="btn btn-primary" onclick="gradeQuiz()">Nộp bài & Chấm điểm</button>
+    </div>
+  </div>
+
+  <script>
+    // DỮ LIỆU ĐỀ CƯƠNG
+    const mcqQuestions = [
+      { q: "Tổ chức quốc tế được xem như tiền thân của Liên hợp quốc là", opts: ["A. Hội Quốc liên", "B. Đại hội đồng", "C. khối Đồng minh", "D. khối Hiệp ước"], ans: "A" },
+      { q: "Đầu năm 1945, đâu là vấn đề cấp bách đặt ra cho các nước Đồng minh chống phát xít?", opts: ["A. Phân chia lại thuộc địa của các nước", "B. Tổ chức lại thế giới sau chiến tranh", "C. Thiết lập trật tự thế giới mới hai cực", "D. Phục hồi và phát triển kinh tế thế giới"], ans: "B" },
+      { q: "Đâu là một trong những vai trò mục tiêu của tổ chức Liên hợp quốc?", opts: ["A. Cân bằng quyền lực các nước", "B. Xoá bỏ chế độ thực dân kiểu cũ", "C. Duy trì hòa bình, an ninh thế giới", "D. Thực hiện quyền tự do hàng hải"], ans: "C" },
+      { q: "Ngày 1/1/1942, đại diện của 26 nước đã ký văn kiện nào sau đây?", opts: ["A. Tuyên bố về Liên hợp quốc", "B. Thành lập khối Liên minh", "C. Xóa bỏ hệ thống thuộc địa", "D. Chấm dứt chiến tranh lạnh"], ans: "A" },
+      { q: "Đâu là một trong những nội dung của mục tiêu, hành động mang tính toàn cầu đến năm 2030 của Liên hợp quốc?", opts: ["A. Chống nạn thất nghiệp", "B. Quyền tự do chính trị", "C. Chống bạo lực gia đình", "D. Chất lượng giáo dục"], ans: "D" },
+      { q: "Một trong những điểm giống về mục đích thành lập của Liên hợp quốc và Hội quốc liên là đều muốn", opts: ["A. duy trì hoà bình và an ninh thế giới", "B. ngăn chặn âm mưu bá chủ của Mỹ", "C. thực hiện các quyền tự do dân chủ", "D. trao đổi công nghệ và kinh nghiệm"], ans: "A" },
+      { q: "Một trong những khu vực được hội nghị I-an-ta (1945) quy định thuộc phạm vi ảnh hưởng của Liên Xô là", opts: ["A. Tây Âu", "B. Đông Âu", "C. Nhật Bản", "D. Triều Tiên"], ans: "B" },
+      { q: "Một trong những khu vực được hội nghị I-an-ta (1945) quy định thuộc phạm vi ảnh hưởng của Mỹ là", opts: ["A. Tây Âu", "B. Đông Âu", "C. Mông Cổ", "D. Trung Đông"], ans: "A" },
+      { q: "Trật tự thế giới mới được hình thành sau chiến tranh thế giới thứ hai (1945) là", opts: ["A. đơn cực", "B. Véc-xai", "C. I-an-ta", "D. đa cực"], ans: "C" },
+      { q: "Quốc gia đứng đầu khối tư bản chủ nghĩa sau Chiến tranh thế giới thứ hai (1945) là", opts: ["A. Anh", "B. Pháp", "C. Mỹ", "D. Đức"], ans: "C" },
+      { q: "Quốc gia đứng đầu khối xã hội chủ nghĩa sau chiến tranh thế giới hai (1945) là", opts: ["A. Trung Quốc", "B. Việt Nam", "C. Triều Tiên", "D. Liên Xô"], ans: "D" },
+      { q: "Những quốc gia nào sau đây tham dự hội nghị I-an-ta (2/1945)?", opts: ["A. Liên Xô, Mỹ, Pháp", "B. Liên Xô, Mỹ, Anh", "C. Trung Quốc, Mỹ, Anh", "D. Liên Xô, Anh, Pháp"], ans: "B" },
+      { q: "Năm 1989, tại đảo Man-ta, Mỹ và Liên Xô đã có hành động nào sau đây?", opts: ["A. Tuyên bố chung về vũ khí chiến lược", "B. Ký nhiều hiệp định thương mại tự do", "C. Tuyên bố chấm dứt Chiến tranh lạnh", "D. Cam kết hòa bình giữa Mỹ và Liên Xô"], ans: "C" },
+      { q: "Sự kiện nào sau đây đánh dấu trật tự hai cực I-an-ta chấm dứt?", opts: ["A. Liên Xô chính thức tan rã (12/1991)", "B. Chiến tranh lạnh kết thúc (1989)", "C. Bức tường Béc-lin sụp đổ (1989)", "D. Khủng hoảng năng lượng (1973)"], ans: "A" },
+      { q: "Nguyên nhân chủ yếu dẫn tới cục diện hai cực, hai phe sau Chiến tranh thế giới thứ hai là gì?", opts: ["A. Do sự đối lập về mục tiêu và chiến lược giữa hai cường quốc Liên Xô và Mỹ", "B. Mâu thuẫn về vấn đề thị trường và thuộc địa của các nước tư bản chủ nghĩa", "C. Trật tự thế giới có quá nhiều mâu thuẫn của các nước bại trận và thắng trận", "D. Ý muốn tiêu diệt Liên Xô của giới tư bản ở Mỹ để độc chiếm nguồn dầu mỏ"], ans: "A" },
+      { q: "Sự ra đời của khối NATO (1949) và Tổ chức Hiệp ước Vác-sa-va (1955) dẫn đến hệ quả gì trong quan hệ quốc tế?", opts: ["A. Đã đánh dấu sự phát triển vượt bậc của hai nước", "B. Chấm dứt mối quan hệ đồng minh giữa Xô - Mỹ", "C. Hàng loạt các tổ chức quân sự trên thế giới ra đời", "D. Đánh dấu sự xác lập của cục diện hai cực, hai phe"], ans: "D" },
+      { q: "Xu thế chủ đạo trong quan hệ giữa các cường quốc sau Chiến tranh lạnh là", opts: ["A. đối thoại, thỏa hiệp, tránh xung đột trực tiếp", "B. tôn trọng vai trò, nhiệm vụ của Liên hợp quốc", "C. hợp tác, không cạnh tranh, không mâu thuẫn", "D. hòa bình, không xung đột, tiến hành hợp tác"], ans: "A" },
+      { q: "Nội dung căn bản trong quan hệ quốc tế hiện nay là về lĩnh vực", opts: ["A. an ninh", "B. kinh tế", "C. văn hóa", "D. chính trị"], ans: "B" },
+      { q: "“Lấy phát triển kinh tế làm trọng điểm” được xem là nội dung chiến lược chủ yếu của các nước trong thời kỳ", opts: ["A. Chiến tranh thế giới thứ hai kết thúc", "B. sau khi cuộc Chiến tranh lạnh kết thúc", "C. chủ nghĩa xã hội thành hệ thống thế giới", "D. ngay sau khi Chiến tranh lạnh bắt đầu"], ans: "B" },
+      { q: "Xu thế Toàn cầu hóa là hệ quả của", opts: ["A. cuộc cách mạng khoa học công nghệ", "B. chiến tranh lạnh, trật tự hai cực I-an-ta", "C. cách mạng công nghiệp thế kỷ XVII", "D. cuộc khủng hoảng năng lượng (1973)"], ans: "A" },
+      { q: "Một trong những biểu hiện của xu thế Toàn cầu hóa là", opts: ["A. sự gia tăng của thương mại thế giới", "B. mâu thuẫn giữa hai siêu cường Xô, Mỹ", "C. xu thế hoà hoãn Đông Tây thế kỷ XX", "D. thế giới đã chia thành hai cực, hai phe"], ans: "A" },
+      { q: "Từ thắng lợi của các hoạt động đối ngoại thời Chiến tranh lạnh, bài học quan trọng nhất mà Việt Nam rút ra cho chính sách đối ngoại hiện nay là", opts: ["A. thực hiện đường lối đối ngoại độc lập, tự chủ", "B. mở cửa thu hút đầu tư, khoa học - kỹ thuật, vốn", "C. không liên minh liên kết với các nước châu Âu", "D. tham gia nhiều tổ chức quốc tế, khu vực"], ans: "A" },
+      { q: "Trước nguy cơ ô nhiễm môi trường do ảnh hưởng của cách mạng khoa học công nghệ hiện nay, biện pháp giải quyết có hiệu quả nhất cho các nước là", opts: ["A. cắt giảm khí thải tạo hiệu ứng nhà kính", "B. giảm sản xuất ngành công nghiệp nặng", "C. giảm sản xuất công - nông nghiệp sạch", "D. sử dụng toàn bộ năng lượng sạch, tái tạo"], ans: "A" },
+      { q: "Nhận định nào sau đây là đúng về những chính sách mà Việt Nam có thể áp dụng để hội nhập kinh tế thành công với thế giới?", opts: ["A. Xây dựng kinh tế tự chủ, phát huy lợi thế đất nước", "B. Liên kết hợp tác chặt chẽ với các nước Đông Nam Á", "C. Tìm kiếm những nguồn vốn viện trợ không hoàn lại", "D. Gia nhập vào tất cả các tổ chức thương mại thế giới"], ans: "A" },
+      { q: "Hiệp hội các quốc gia Đông Nam Á (ASEAN) ra đời trong hoàn cảnh nào sau đây", opts: ["A. Thế giới và khu vực đang có những chuyển biến quan trọng", "B. Tất cả các nước khu vực Đông Nam Á đều giành được độc lập", "C. Chiến tranh lạnh kết thúc, các dân tộc đang hòa hợp, hòa giải", "D. Xu thế hòa hoãn Đông - Tây trở thành chủ đạo trên thế giới"], ans: "A" },
+      { q: "Một trong những xu thế xuất hiện từ sau Chiến tranh thế giới thứ hai (1945) là", opts: ["A. Chống khủng bố", "B. Liên kết khu vực", "C. Thực dân hóa", "D. Toàn cầu hóa"], ans: "B" },
+      { q: "Ngày 8 - 8 - 1967, tại Băng - Cốc (Thái Lan) đã diễn ra sự kiện nào?", opts: ["A. Tuyên bố thành lập tổ chức ASEAN", "B. Vấn đề Cam-pu-chia được giải quyết", "C. Lễ kết nạp Việt Nam làm thành viên", "D. Hiệp ước Ba-li đã được thông qua"], ans: "A" },
+      { q: "Một trong những mục đích thành lập của tổ chức ASEAN là", opts: ["A. đưa Đông Nam Á trở thành số 1 thế giới", "B. xây dựng khối tư bản chủ nghĩa phát triển", "C. thúc đẩy hòa bình - ổn định của khu vực", "D. thúc đẩy sự hợp tác toàn diện, thống nhất"], ans: "C" },
+      { q: "Văn kiện nào đã nêu rõ mục đích thành lập của tổ chức ASEAN?", opts: ["A. Tuyên bố ASEAN", "B. Hiệp định Giơ-ne-vơ", "C. Hiệp định Paris", "D. Tuyên bố Lahay"], ans: "A" },
+      { q: "Quốc gia nào là thành viên thứ 10 của ASEAN?", opts: ["A. Việt Nam", "B. Thái Lan", "C. Mi-an-ma", "D. Cam-pu-chia"], ans: "D" },
+      { q: "Trong quá trình phát triển của ASEAN, giai đoạn từ 1967 - 1976 có đặc điểm là gì?", opts: ["A. Phát triển rất thần kỳ", "B. Xây dựng nền móng", "C. Tránh đối đầu quân sự", "D. Nền kinh tế xuất khẩu"], ans: "B" },
+      { q: "Sự kiện Việt Nam gia nhập ASEAN (1995), đã tác động như thế nào đến sự phát triển của tổ chức này?", opts: ["A. Đập tan âm mưu nô dịch các nước ASEAN", "B. Củng cố nền độc lập mới ở Đông Nam Á", "C. Đẩy nhanh quá trình phát triển của ASEAN", "D. Thúc đẩy nhanh quá trình phi thực dân hóa"], ans: "C" },
+      { q: "Đâu là nhận xét đúng về vai trò của tổ chức ASEAN trên trường quốc tế?", opts: ["A. Liên minh chính trị - kinh tế chiến lược của khu vực Đông Nam Á", "B. Diễn đàn hợp tác kinh tế đa phương ở châu Á - Thái Bình Dương", "C. Liên minh hợp tác toàn diện, hiệu quả của khu vực Đông Nam Á", "D. Tổ chức liên kết kinh tế, thương mại, tài chính lớn nhất của châu Á"], ans: "C" },
+      { q: "Ý tưởng xây dựng cộng đồng ASEAN xuất hiện từ", opts: ["A. ASEAN mới thành lập (1967)", "B. khi Chiến tranh lạnh kết thúc", "C. khủng hoảng năng lượng (1973)", "D. khủng hoảng tài chính (1997)"], ans: "A" },
+      { q: "Đâu là cơ sở pháp lý để các nước Đông Nam Á xây dựng Cộng đồng ASEAN?", opts: ["A. Hiến chương ASEAN", "B. Tuyên bố Băng - cốc", "C. Hiến chương Liên hợp quốc", "D. hiệp ước Ba-li 1976"], ans: "A" },
+      { q: "Đâu không phải là một trong những trụ cột của Cộng đồng ASEAN?", opts: ["A. Cộng đồng Chính trị - An ninh", "B. Cộng đồng Văn hóa - Xã hội", "C. Cộng đồng An ninh - Quốc phòng", "D. Cộng đồng Kinh tế"], ans: "C" },
+      { q: "Một trong những thách thức về kinh tế mà Cộng đồng ASEAN phải đối mặt trong quá trình xây dựng và phát triển là", opts: ["A. sự đa dạng về chế độ chính trị", "B. sự xung đột lãnh thổ, biên giới", "C. chênh lệch trình độ phát triển", "D. những vấn đề lịch sử sâu xa"], ans: "C" },
+      { q: "Nội dung nào sau đây là mục tiêu hướng tới của các nước Đông Nam Á khi xây dựng Cộng đồng kinh tế ASEAN?", opts: ["A. thu hẹp khoảng cách giữa các nước ASEAN về dân trí", "B. giảm nghèo, thu hẹp khoảng cách về kinh tế - xã hội", "C. xây dựng một ASEAN giàu có, không vũ khí hạt nhân", "D. đưa ASEAN trở thành tổ chức liên kết lớn nhất thế giới"], ans: "B" },
+      { q: "Nội dung nào sau đây là mục tiêu hướng tới của các nước Đông Nam Á khi xây dựng Cộng đồng Văn hóa - Xã hội ASEAN?", opts: ["A. thu hẹp khoảng cách giữa các nước ASEAN về dân trí", "B. xây dựng tình đoàn kết, hữu nghị giữa các nước ASEAN", "C. xây dựng một ASEAN giàu có, không có vũ khí hạt nhân", "D. đưa ASEAN trở thành tổ chức liên kết lớn nhất thế giới"], ans: "B" },
+      { q: "Nội dung nào sau đây là thách thức chung mà Cộng đồng ASEAN đang phải tìm ra giải pháp ứng phó?", opts: ["A. Âm mưu xâm lược của Trung Quốc", "B. Sự vươn lên mạnh mẽ của Nhật Bản", "C. Âm mưu bá chủ thế giới của nước Mỹ", "D. Ô nhiễm môi trường, biến đổi khí hậu"], ans: "D" },
+      { q: "Nhận định nào sau đây đúng khi đánh giá về triển vọng của Cộng đồng ASEAN", opts: ["A. trở thành một trong những khu vực phát triển năng động bậc nhất thế giới", "B. quá trình nhất thể hóa của Cộng đồng ASEAN diễn ra trong tương lai gần", "C. đã xây dựng cộng đồng Chính trị - An ninh để trở thành đối trọng với Mỹ", "D. Trung Quốc đang tìm mọi cách chia rẽ Cộng đồng ASEAN liên kết với Mỹ"], ans: "A" },
+      { q: "Tham gia vào Cộng đồng ASEAN sẽ đem lại những cơ hội nào cho Việt Nam để tiến hành xây dựng kinh tế đất nước?", opts: ["A. Nhận được sự đầu tư về vốn, tiếp thu khoa học công nghệ", "B. Có thêm lực lượng đương đầu với Trung Quốc ở Biển Đông", "C. Nâng cao vị thế quốc tế để gia nhập vào Hội đồng bảo an", "D. Khắc phục được tình trạng tham nhũng, lãng phí, quan liêu"], ans: "A" },
+      { q: "Một trong những địa phương giành được chính quyền sớm nhất trong Tổng khởi nghĩa tháng Tám năm 1945 là", opts: ["A. Thanh Hóa", "B. Quảng Nam", "C. Hưng Yên", "D. Cao Bằng"], ans: "B" },
+      { q: "Một trong những địa phương giành chính quyền sau cùng trong Tổng khởi nghĩa tháng Tám năm 1945 là", opts: ["A. Cần Thơ", "B. Hà Tiên", "C. Móng Cái", "D. Lai Châu"], ans: "B" },
+      { q: "Nội dung nào sau đây là điều kiện khách quan thuận lợi cho Cách mạng tháng Tám nổ ra?", opts: ["A. Chiến tranh thế giới thứ hai đã bùng nổ", "B. phát xít Đức đầu hàng quân Đồng minh", "C. Mỹ ném bom nguyên tử xuống Nhật Bản", "D. Nhật đầu hàng Đồng minh không điều kiện"], ans: "D" },
+      { q: "Sự kiện nào sau đây đánh dấu nước Việt Nam Dân chủ Cộng hòa được thành lập", opts: ["A. Hồ Chí Minh đọc Tuyên ngôn độc lập (2/9/1945)", "B. Đại hội quốc dân họp ở Tân Trào (8/1945)", "C. Hội nghị đại biểu toàn quốc của Đảng (8/1945)", "D. Tiến hành Tổng tuyển cử bầu Quốc hội (1/1946)"], ans: "A" },
+      { q: "Sự kiện nào dưới đây đánh dấu chế độ phong kiến ở Việt Nam đã sụp đổ hoàn toàn?", opts: ["A. Giành được chính quyền ở Hà Nội", "B. Vua Bảo Đại đã tuyên bố thoái vị", "C. Khởi nghĩa thắng lợi trong cả nước", "D. Hồ Chí Minh đọc Tuyên ngôn Độc lập"], ans: "B" },
+      { q: "Trong cuộc Cách mạng tháng Tám (1945) nhân dân Việt Nam đã giành lại chính quyền từ trong tay kẻ thù nào?", opts: ["A. Nhật", "B. Anh", "C. Pháp", "D. Mỹ"], ans: "A" },
+      { q: "Thắng lợi của nhân dân Việt Nam trong Cách mạng tháng Tám đã có tác động như thế nào đến phong trào cách mạng thế giới?", opts: ["A. Làm thất bại chiến lược toàn cầu của Mỹ", "B. Cổ vũ phong trào cách mạng trên thế giới", "C. Góp phần cho sự ra đời của hơn 100 nước", "D. Xây dựng vững chắc thành trì cách mạng"], ans: "B" },
+      { q: "Nội dung nào sau đây là bối cảnh bùng nổ Cách mạng tháng Tám năm 1945 ở Việt Nam?", opts: ["A. Đế quốc Mỹ can thiệp trực tiếp vào miền Nam", "B. Miền Bắc tiến nhanh lên chủ nghĩa xã hội", "C. Nhà nước Dân chủ Cộng hòa mới ra đời", "D. Quân Đồng minh chuẩn bị vào Đông Dương"], ans: "D" }
+    ];
+
+    const tfQuestions = [
+      {
+        quote: "“Vào giai đoạn cuối của Chiến tranh thế giới thứ hai, tình hình thế giới có những chuyển biến quan trọng. Sức mạnh và ưu thế trên chiến trường thuộc về phe đồng minh chống phát xít. Việc tổ chức lại thế giới sau chiến tranh ngày càng trở nên cấp bách. Chiến tranh diễn ra càng khốc liệt thì ý tưởng về một tổ chức quốc tế thực sự có vai trò trong việc duy trì hòa bình thế giới càng rõ nét.”",
+        items: [
+          { text: "a) Chiến tranh thế giới thứ hai diễn ra từ 1939 đến 1945 giữa phe liên minh và phát xít.", ans: "S" },
+          { text: "b) Trong Chiến tranh thế giới thứ hai, thắng lợi thuộc về phe đồng minh chống phát xít.", ans: "D" },
+          { text: "c) Để tổ chức lại thế giới sau chiến tranh, Liên Xô, Mỹ, Anh đã triệu tập hội nghị I-an-ta", ans: "D" },
+          { text: "d) Tổ chức quốc tế được thành lập sau Chiến tranh thế giới thứ hai gọi là Hội quốc liên..", ans: "S" }
+        ]
+      },
+      {
+        quote: "“Hội nghị đưa ra những quyết định về việc kết thúc chiến tranh, tiêu diệt tận gốc phát xít Đức, quân phiệt Nhật Bản và thỏa thuận về việc đóng quân, phân chia phạm vi ảnh hưởng ở châu Âu và châu Á sau chiến tranh. Ở châu Âu, quân đội Liên Xô chiếm đóng miền Đông nước Đức, Đông Béc-lin và các nước Đông Âu. quân đội Mỹ, Anh và Pháp chiếm đóng miền Tây nước Đức, Tây Béc-lin và các nước Tây Âu. Vùng Đông Âu thuộc phạm vi ảnh hưởng của Liên Xô, vùng Tây Âu thuộc phạm vi ảnh hưởng của Mỹ... Ở châu Á, hội nghị chấp nhận những điều kiện để Liên Xô tham chiến tiêu diệt quân phiệt Nhật Bản... Các vùng còn lại ở châu Á (Đông Nam Á, Nam Á, Tây Á) vẫn thuộc phạm vi ảnh hưởng của các nước phương Tây”",
+        items: [
+          { text: "a) Những quyết định đề cập ở đoạn tư liệu trên là của hội nghị Véc xai - Oa sinh tơn.", ans: "S" },
+          { text: "b) Những quyết định ở hội nghị trên góp phần tạo khuôn khổ cho trật tự thế giới mới.", ans: "D" },
+          { text: "c) Ở nước Đức, thỏa thuận đóng quân đã gây ra tình trạng chia cắt hai miền kéo dài.", ans: "D" },
+          { text: "d) Ở châu Á, Liên Xô và Mỹ không có vùng ảnh hưởng, khu vực này của phương Tây.", ans: "S" }
+        ]
+      },
+      {
+        quote: "“Trật tự thế giới hai cực I-an-ta tồn tại từ năm 1945 đến năm 1991, trải qua hai giai đoạn: Giai đoạn từ năm 1945 đến đầu những năm 70 của thế kỷ XX, giai đoạn xác lập và phát triển của Trật tự thế giới hai cực I-an-ta với sự đối đầu giữa một bên là Mỹ đứng đầu hệ thống tư bản chủ nghĩa và một bên là Liên Xô, đứng đầu hệ thống xã hội chủ nghĩa. Trong giai đoạn này, Trật tự thế giới hai cực I-an-ta được định hình với sự thiết lập các khối quân sự đối đầu nhau, tiêu biểu là: Tổ chức Hiệp ước Bắc Đại Tây Dương (NATO) do Mỹ và các nước phương Tây thành lập năm 1949, Tổ chức Hiệp ước Vác-sa-va do Liên Xô và các nước Đông Âu thành lập năm 1955. Hai cực chi phối hầu hết các lĩnh vực phát triển của thế giới.”",
+        items: [
+          { text: "a) Trật tự I-an-ta được xác lập hoàn toàn với sự ra đời của các khối quân sự đối lập.", ans: "D" },
+          { text: "b) Trật tự I-an-ta hình thành và tồn tại với sự xuất hiện của hai hệ thống xã hội đối lập.", ans: "D" },
+          { text: "c) Trật tự hai cực chỉ có ảnh hưởng đến các nước xã hội chủ nghĩa và tư bản chủ nghĩa.", ans: "S" },
+          { text: "d) Năm 1991, trật tự I-an-ta sụp đổ với sự tan rã của hai phe tư bản và xã hội chủ nghĩa.", ans: "S" }
+        ]
+      },
+      {
+        quote: "“Đầu những năm 60 của thế kỷ XX, một số tổ chức khu vực được thành lập như: Hiệp hội Đông Nam Á (1961) gồm Ma-lai-xi-a, Phi-líp-pin và Thái Lan; Tổ chức MAPHILINDO (1963) gồm Ma-lai-xi-a, Phi-líp-pin, In-đô-nê-xi-a. Tuy nhiên, các tổ chức này chỉ tồn tại trong một thời gian ngắn, do những bất đồng trong quan hệ song phương giữa một số nước thành viên.... Sau các cuộc thảo luận về việc thành lập tổ chức khu vực, ngày 8/8/1967 tại Băng Cốc (Thái Lan), Ngoại trưởng năm nước: In-đô-nê-xi-a, Ma-lai-xi-a, Phi-líp-pin, Xin-ga-po và Thái Lan đã thông qua Tuyên bố ASEAN (còn gọi là Tuyên bố Băng Cốc), chính thức thành lập Hiệp hội các quốc gia Đông Nam Á (viết tắt tiếng Anh là ASEAN).”",
+        items: [
+          { text: "a) Tiền thân của ASEAN là tổ chức Hiệp hội Đông Nam Á và MAPHILINDO.", ans: "D" },
+          { text: "b) Sau khi thành lập, tổ chức ASEAN gặp phải những bất đồng trong quan hệ.", ans: "S" },
+          { text: "c) ASEAN ra đời năm 1967 với số thành viên chính thức ban đầu là năm nước.", ans: "D" },
+          { text: "d) ASEAN ra đời trong bối cảnh cuộc chiến tranh của Mỹ ở Việt Nam diễn ra.", ans: "D" }
+        ]
+      },
+      {
+        quote: "“Kể từ thời điểm năm quốc gia sáng lập ký Tuyên bố ASEAN (Tuyên bố Bangkok), năm 1967, đến nay, ASEAN đã phát triển và mở rộng thành một cộng đồng gồm mười thành viên, hướng tới mục tiêu đoàn kết tất cả các quốc gia ở Đông Nam Á. Vượt qua những thách thức trong tiến trình phát triển suốt 50 năm, trải qua quá trình xây dựng cộng đồng kéo dài hàng thập kỷ, ASEAN về căn bản đã hình thành một chương trình nghị sự và trở thành một trong những tổ chức khu vực thành công nhất.”",
+        items: [
+          { text: "a) Năm 1967, Hiệp hội các quốc gia Đông Nam Á (ASEAN) ra đời.", ans: "D" },
+          { text: "b) Quá trình phát triển thành viên của ASEAN diễn ra nhanh chóng và thuận lợi.", ans: "S" },
+          { text: "c) Cộng đồng ASEAN được thành lập trên cơ sở sự tương đồng về mục tiêu và con đường phát triển của các quốc gia.", ans: "S" },
+          { text: "d) Để duy trì sự ổn định và phát triển, Cộng đồng ASEAN cần tăng cường sự gắn kết và thống nhất thể chế chính trị.", ans: "S" }
+        ]
+      },
+      {
+        quote: "“Cách mạng tháng Tám năm 1945 ở Việt Nam góp phần vào chiến thắng chủ nghĩa phát xít trong CM tháng Tám năm 1945 đã chọc thủng khâu yếu nhất trong hệ thống thuộc địa, làm suy yếu chủ nghĩa đế quốc. Góp phần cổ vũ các dân tộc thuộc địa và phụ thuộc đứng lên đấu tranh tự giải phóng, đồng thời có ảnh hưởng đến công cuộc đấu tranh giải phóng dân tộc của Lào và Cam-pu-chia.”",
+        items: [
+          { text: "a) Cách mạng tháng Tám đã góp phần đánh bại phát xít Nhật Bản.", ans: "D" },
+          { text: "b) Đây là cuộc cách mạng giải phóng dân tộc điển hình ở châu Á.", ans: "D" },
+          { text: "c) Cách mạng tháng Tám đã giải phóng Việt Nam, Lào, Cam-pu-chia.", ans: "S" },
+          { text: "d) Cách mạng tháng Tám đã cổ vũ các dân tộc thuộc địa, phụ thuộc.", ans: "D" }
+        ]
+      }
+    ];
+
+    // NỘI DUNG TỰ LUẬN ĐÃ ĐƯỢC TINH GỌN, GIẬT TỪ KHÓA, CỰC KỲ DỄ THUỘC
+    const essayQuestions = [
+      {
+        q: "Câu 1. Các xu thế phát triển chính sau Chiến tranh lạnh",
+        a: `Gồm đúng <strong>4 xu thế chính</strong>:<br>
+        • <strong>Xu thế đa cực:</strong> Trật tự 2 cực sụp đổ; hình thành nhiều trung tâm quyền lực (Mỹ, Trung Quốc, Nga, EU, Nhật Bản, Ấn Độ), không một nước nào chi phối tất cả.<br>
+        • <strong>Kinh tế làm trọng tâm:</strong> Các nước tập trung xây dựng tiềm lực kinh tế thay cho chạy đua vũ trang đối đầu quân sự.<br>
+        • <strong>Đối thoại, hợp tác:</strong> Chuyển từ đối đầu sang thương lượng, giải quyết mọi bất đồng bằng biện pháp hòa bình.<br>
+        • <strong>Toàn cầu hóa:</strong> Bùng nổ từ thập niên 80 (thế kỉ XX), các quốc gia ngày càng gắn kết và phụ thuộc lẫn nhau.`
+      },
+      {
+        q: "Câu 2. Thách thức và triển vọng của Cộng đồng ASEAN",
+        a: `<strong>1. Thách thức:</strong><br>
+        • <em>Nội khối:</em> Chế độ chính trị đa dạng; chênh lệch kinh tế lớn; khó khăn khi ra quyết định vì nguyên tắc đồng thuận.<br>
+        • <em>Bên ngoài:</em> Cạnh tranh ảnh hưởng của các nước lớn; vấn đề phức tạp ở <strong>Biển Đông</strong>; an ninh phi truyền thống (biến đổi khí hậu, thiên tai, dịch bệnh).<br><br>
+        <strong>2. Triển vọng:</strong><br>
+        • Liên kết ngày càng sâu rộng trên <strong>3 trụ cột</strong> (Chính trị - An ninh, Kinh tế, Văn hóa - Xã hội).<br>
+        • Duy trì vị thế nền kinh tế phát triển năng động top đầu thế giới.<br>
+        • Giữ vững <strong>vai trò trung tâm</strong> khu vực và nâng cao uy tín trên trường quốc tế.`
+      },
+      {
+        q: "Câu 3. Vì sao Cách mạng tháng Tám là sự kiện lịch sử vĩ đại?",
+        a: `Chia chuẩn 2 vế <strong>Dân tộc</strong> và <strong>Quốc tế</strong>:<br>
+        <strong>1. Ý nghĩa dân tộc:</strong><br>
+        • Lật đổ ách cai trị của Pháp (>80 năm), Nhật (~5 năm) và chế độ phong kiến (>1000 năm).<br>
+        • Khai sinh nước Việt Nam Dân chủ Cộng hòa; đưa nhân dân từ thân phận nô lệ lên làm chủ đất nước.<br>
+        • Đưa Đảng từ hoạt động bí mật trở thành đảng cầm quyền.<br>
+        • Mở ra kỷ nguyên mới: độc lập tự do gắn liền chủ nghĩa xã hội.<br><br>
+        <strong>2. Ý nghĩa quốc tế:</strong><br>
+        • Cùng phe Đồng minh đánh sập chủ nghĩa phát xít trong CTTG II.<br>
+        • Chọc thủng khâu yếu nhất, làm tan rã hệ thống thuộc địa của chủ nghĩa đế quốc.<br>
+        • Cổ vũ mạnh mẽ phong trào giải phóng dân tộc (trực tiếp là Lào và Cam-pu-chia).`
+      }
+    ];
+
+    // RENDER FUNCTIONS
+    function renderMCQ() {
+      const container = document.getElementById("mcq-container");
+      container.innerHTML = mcqQuestions.map((item, idx) => `
+        <div class="card" id="mcq-card-${idx}">
+          <div class="q-title">Câu ${idx + 1}: ${item.q}</div>
+          <div class="options-grid">
+            ${item.opts.map((opt, oIdx) => {
+              const letter = ["A", "B", "C", "D"][oIdx];
+              return `
+                <label class="opt-label">
+                  <input type="radio" name="mcq-${idx}" value="${letter}">
+                  <span>${opt}</span>
+                </label>
+              `;
+            }).join("")}
+          </div>
+          <div id="mcq-feedback-${idx}"></div>
+        </div>
+      `).join("");
+    }
+
+    function renderTF() {
+      const container = document.getElementById("tf-container");
+      container.innerHTML = tfQuestions.map((q, qIdx) => `
+        <div class="card" id="tf-card-${qIdx}">
+          <div class="q-title">Câu ${qIdx + 1}: Đọc đoạn tư liệu sau:</div>
+          <div class="quote-box">${q.quote}</div>
+          <div class="tf-items">
+            ${q.items.map((it, iIdx) => `
+              <div class="tf-sub" id="tf-sub-${qIdx}-${iIdx}">
+                <div class="tf-text">${it.text}</div>
+                <div class="tf-btns">
+                  <label class="tf-label">
+                    <input type="radio" name="tf-${qIdx}-${iIdx}" value="D"> Đúng
+                  </label>
+                  <label class="tf-label">
+                    <input type="radio" name="tf-${qIdx}-${iIdx}" value="S"> Sai
+                  </label>
+                </div>
+              </div>
+            `).join("")}
+          </div>
+        </div>
+      `).join("");
+    }
+
+    function renderAnswersTab() {
+      // 1. MCQ list
+      document.getElementById("ans-mcq-list").innerHTML = mcqQuestions.map((m, idx) => `
+        <div class="card ans-item">
+          <div class="q-title">Câu ${idx + 1}: ${m.q}</div>
+          <div style="margin-top:6px;"><span class="key-badge">Đáp án đúng:</span> <strong>${m.ans}</strong> (${m.opts.find(o => o.startsWith(m.ans))})</div>
+        </div>
+      `).join("");
+
+      // 2. TF list
+      document.getElementById("ans-tf-list").innerHTML = tfQuestions.map((tf, idx) => `
+        <div class="card ans-item">
+          <div class="q-title">Câu ${idx + 1}</div>
+          <div class="quote-box">${tf.quote}</div>
+          <div style="display:flex; flex-direction:column; gap:6px; margin-top:8px;">
+            ${tf.items.map(it => `
+              <div>
+                <span class="key-badge">[${it.ans === 'D' ? 'ĐÚNG' : 'SAI'}]</span> ${it.text}
+              </div>
+            `).join("")}
+          </div>
+        </div>
+      `).join("");
+
+      // 3. Essay list
+      document.getElementById("ans-essay-list").innerHTML = essayQuestions.map((eq, idx) => `
+        <div class="card ans-item">
+          <div class="q-title" style="color:var(--primary); font-size:1.05rem;">${eq.q}</div>
+          <div style="margin-top:10px; line-height:1.7;">${eq.a}</div>
+        </div>
+      `).join("");
+    }
+
+    // INTERACTION LOGIC
+    function switchTab(tab) {
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      const testTab = document.getElementById('tab-test');
+      const ansTab = document.getElementById('tab-answers');
+      const actionBar = document.getElementById('action-bar');
+
+      if (tab === 'test') {
+        testTab.style.display = 'block';
+        ansTab.style.display = 'none';
+        actionBar.style.display = 'flex';
+        document.querySelectorAll('.tab-btn')[0].classList.add('active');
+      } else {
+        testTab.style.display = 'none';
+        ansTab.style.display = 'block';
+        actionBar.style.display = 'none';
+        document.querySelectorAll('.tab-btn')[1].classList.add('active');
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function gradeQuiz() {
+      let mcqCorrect = 0;
+      let tfCorrect = 0;
+
+      // Grade MCQ (50 questions)
+      mcqQuestions.forEach((item, idx) => {
+        const selected = document.querySelector(`input[name="mcq-${idx}"]:checked`);
+        const card = document.getElementById(`mcq-card-${idx}`);
+        const feedback = document.getElementById(`mcq-feedback-${idx}`);
+
+        card.classList.remove('correct-card', 'wrong-card');
+        if (selected && selected.value === item.ans) {
+          mcqCorrect++;
+          card.classList.add('correct-card');
+          feedback.innerHTML = `<span class="feedback-badge badge-correct">✓ Chính xác!</span>`;
+        } else {
+          card.classList.add('wrong-card');
+          feedback.innerHTML = `<span class="feedback-badge badge-wrong">✗ Sai rồi! Đáp án đúng: ${item.ans}</span>`;
+        }
+      });
+
+      // Grade True/False (6 x 4 = 24 items)
+      tfQuestions.forEach((q, qIdx) => {
+        q.items.forEach((it, iIdx) => {
+          const selected = document.querySelector(`input[name="tf-${qIdx}-${iIdx}"]:checked`);
+          const row = document.getElementById(`tf-sub-${qIdx}-${iIdx}`);
+          if (selected && selected.value === it.ans) {
+            tfCorrect++;
+            row.style.background = "#d1fae5";
+          } else {
+            row.style.background = "#fee2e2";
+          }
+        });
+      });
+
+      // Quy đổi thang điểm 10 (Trắc nghiệm 7đ, Đúng-Sai 3đ)
+      const totalScore = ((mcqCorrect / 50) * 7 + (tfCorrect / 24) * 3).toFixed(2);
+      const scoreEl = document.getElementById('score-display');
+      scoreEl.innerHTML = `Kết quả: ${mcqCorrect}/50 Trắc nghiệm | ${tfCorrect}/24 Ý Đúng-Sai ➜ <span style="color:var(--primary); font-size:1.2rem;">${totalScore}/10đ</span>`;
+      scoreEl.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function resetQuiz() {
+      if (confirm("Fen có chắc muốn làm lại từ đầu không?")) {
+        document.querySelectorAll('input[type="radio"]').forEach(r => r.checked = false);
+        document.querySelectorAll('.card').forEach(c => c.classList.remove('correct-card', 'wrong-card'));
+        document.querySelectorAll('[id^="mcq-feedback-"]').forEach(f => f.innerHTML = '');
+        document.querySelectorAll('.tf-sub').forEach(r => r.style.background = 'transparent');
+        document.getElementById('score-display').innerText = 'Chưa nộp bài';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function filterAnswers() {
+      const filter = document.getElementById('search-input').value.toLowerCase();
+      const items = document.querySelectorAll('.ans-item');
+      items.forEach(it => {
+        const text = it.innerText.toLowerCase();
+        it.style.display = text.includes(filter) ? 'block' : 'none';
+      });
+    }
+
+    // INIT
+    renderMCQ();
+    renderTF();
+    renderAnswersTab();
+  </script>
+</body>
+</html>
